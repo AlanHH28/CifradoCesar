@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Cifrado César</title>
+
+    <script>
+        function cifrar(inputText, desplazamiento) {
+
+            var abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            var inputArray = inputText.split('');
+
+            var result = inputArray.map(function(char) {
+                var index = abc.indexOf(char.toUpperCase());
+                if (index !== -1) {
+                    var cifrado = (index + desplazamiento) % abc.length;
+                    return abc[cifrado];
+                } else {
+                    return char;
+                }
+            });
+            output.textContent = result.join('');
+        }
+        
+        function descifrar(inputText, desplazamiento) {
+           
+
+            var abcd = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            var inputArray = inputText.split('');
+
+            var result = inputArray.map(function(char) {
+                var index = abcd.indexOf(char.toUpperCase());
+                if (index !== -1) {
+                    var decifra = (index - desplazamiento + abcd.length) % abcd.length;
+                    return abcd[decifra];
+                } else {
+                    return char;
+                }
+            });
+            output.textContent = result.join('');
+        }
+
+        // Función para manejar el clic del botón "Cifrar"
+        function cifrarTexto() {
+            const textoOriginal = document.getElementById('Texto').value;
+            const desplazamiento = parseInt(document.getElementById('desplazamiento').value);
+            cifrar(textoOriginal, desplazamiento);
+        }
+
+        // Función para manejar el clic del botón "Descifrar"
+        function descifrarTexto() {
+            const textoCifrado = document.getElementById('Texto').value;
+            const desplazamiento = parseInt(document.getElementById('desplazamiento').value);
+            descifrar(textoCifrado, desplazamiento);
+        }
+
+    </script>
+
+</head>
+
+<header>
+    <h1>MÉTODO DE CIFRADO</h1>
+</header>
+<body>
+    <div class="form-container">
+        <form action="">
+            <label for="Texto">Escribe algún mensaje</label><br>
+            <input type="text" id="Texto"><br>
+            <label for="desplazamiento">Escribe la cantidad de desplazamiento</label><br>
+            <input type="number" id="desplazamiento"><br>
+            <input type="button" value="Cifrar" onclick="cifrarTexto()">
+            <input type="button" value="Descifrar" onclick="descifrarTexto()">
+        </form>
+        <p id="output"></p>
+    </div>
+    
+</body>
+</html>
